@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wearable Fall Detection and Elderly Alert System</title>
+<meta name="description" content="A wearable that detects falls on the device with TinyML and alerts the family through Telegram.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1b365d;--bg:#f4f6fa;--fg:#1f2a3c;--muted:#5b6677;--card:#fff;--line:#d5dbe6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 "Poppins",system-ui,"Segoe UI",Arial,sans-serif}
+a{color:var(--navy)}
+img,video{max-width:100%}
+
+header{background:var(--navy);color:#fff;padding:48px 20px;text-align:center}
+header .tag{display:inline-block;border:1px solid #9fb4ff;color:#cfdcff;border-radius:99px;padding:3px 16px;font-size:13px;font-weight:600;letter-spacing:1px;margin-bottom:14px}
+header h1{margin:0 auto 12px;max-width:820px;font-size:clamp(26px,4.6vw,40px);line-height:1.25;font-weight:700}
+header p{margin:6px auto;max-width:720px;color:#d7e2ff}
+
+main{max-width:960px;margin:0 auto;padding:10px 20px 50px}
+section{margin-top:34px}
+h2{margin:0 0 14px;font-size:24px;font-weight:700;color:var(--navy)}
+
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.box p{margin:0 0 10px}.box p:last-child{margin-bottom:0}
+.box ul{margin:0;padding-left:22px}.box li{margin-bottom:8px}.box li:last-child{margin-bottom:0}
+
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.grid .box{padding:0;overflow:hidden}
+.grid .box h3{margin:0;padding:12px 18px;color:#fff;font-size:17px;font-weight:600}
+.grid .box p{margin:0;padding:16px 18px}
+
+.c1{background:#455a64}.c2{background:#1e78c2}.c3{background:#e67e00}.c4{background:#c62828}.c5{background:#7b3fa0}
+
+.stats .box{text-align:center;padding:22px 14px}
+.stats b{display:block;font-size:32px;font-weight:700;color:var(--navy);line-height:1.2}
+.stats span{color:var(--muted);font-size:14px}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+
+.video{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#000}
+.video video{display:block;width:100%}
+.cap{font-size:14px;color:var(--muted);margin:10px 0 0}
+
+.shots{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.shots .box{padding:14px;text-align:center}
+.shots img{width:100%;border-radius:8px;display:block;margin-bottom:10px}
+.shots span{font-size:14px;color:var(--muted)}
+
+.two{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.two h3{margin:0 0 10px;font-size:18px;font-weight:600}
+
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btns a{display:inline-block;padding:10px 18px;border-radius:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:500}
+
+footer{text-align:center;color:var(--muted);padding:26px 20px;border-top:1px solid var(--line);font-size:14px}
+@media (max-width:720px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">CAPSTONE PROJECT</div>
+  <h1>Wearable Fall Detection and Elderly Alert System</h1>
+  <p>A small waist-worn device detects a fall with an AI model that runs on the device, asks "Are you OK?", and alerts the family through Telegram.</p>
+  <p>Department of Computer Science and Engineering, University of Chittagong</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Watch the video</h2>
+  <div class="video"><video controls preload="metadata" poster="assets/thumb_title.png"><source src="assets/how_it_works.mov">Your browser does not play this video. <a href="assets/how_it_works.mov">Download it</a>.</video></div>
+  <p class="cap">Narrated video: how the system works, the daily-activity test, the simulated fall test and the results.</p>
+</section>
+
+<section>
+  <h2>The problem</h2>
+  <div class="box">
+    <p>Elderly people who live alone can fall and lie unnoticed for hours. A call button needs the person to press it, and cameras are costly and invade privacy.</p>
+    <p>This system needs no camera. It only reads motion from a sensor worn at the waist, and the raw data stays on the device.</p>
+  </div>
+  <div class="grid" style="margin-top:16px">
+    <div class="box"><h3 class="c4">Call button</h3><p>Only works if the person can press it.</p></div>
+    <div class="box"><h3 class="c5">Cameras</h3><p>Costly, and they invade privacy.</p></div>
+    <div class="box"><h3 class="c1">Phone sensors</h3><p>Only work if the phone is carried.</p></div>
+  </div>
+  <div class="stats grid" style="margin-top:16px">
+    <div class="box"><b>842,000</b><span>estimated deaths from falls worldwide in 2023</span></div>
+    <div class="box"><b>#2</b><span>leading cause of unintentional injury death, after road injuries</span></div>
+    <div class="box"><b>71%</b><span>of those deaths were adults aged 60 and over</span></div>
+  </div>
+  <p class="note">Source: World Health Organization, Falls fact sheet (2023 estimates) &ndash; <a href="https://www.who.int/news-room/fact-sheets/detail/falls">who.int/news-room/fact-sheets/detail/falls</a></p>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <div class="grid">
+    <div class="box"><h3 class="c1">1. Sense</h3><p>ESP32 and MPU6050 read acceleration and rotation 100 times per second.</p></div>
+    <div class="box"><h3 class="c2">2. Decide</h3><p>A TinyML model checks the last 2.5 s every second. A fall is confirmed when the fall score is above 0.6 in 2 windows in a row.</p></div>
+    <div class="box"><h3 class="c3">3. Ask</h3><p>Bluetooth LE alerts the Android app, which shows a 30-second "Are you OK?" countdown.</p></div>
+    <div class="box"><h3 class="c4">4. Alert</h3><p>No answer: a Telegram message goes to the family group. Offline messages are queued and retried every 20 s.</p></div>
+  </div>
+</section>
+
+<section id="demo">
+  <h2>Our real prototype</h2>
+  <div class="box" style="margin-bottom:16px"><p style="margin:0">Two tests: <b>daily activities</b> (expected: no fall detected) and a <b>simulated fall</b> (expected: fall detected and a Telegram alert).</p></div>
+  <h2 style="margin-top:26px">The prototype app</h2>
+  <div class="shots">
+    <div class="box"><img src="assets/app_countdown.jpg" alt="App showing FALL DETECTED and a 30 second countdown" loading="lazy"><span>FALL DETECTED and countdown</span></div>
+    <div class="box"><img src="assets/telegram_group.jpg" alt="Telegram group with alert messages" loading="lazy"><span>Telegram group alerts</span></div>
+    <div class="box"><img src="assets/app_log.jpg" alt="App activity log" loading="lazy"><span>Activity log</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <div class="box"><p>Trained on the public SisFall dataset (38 subjects) and tested on 7 subjects never seen in training.</p></div>
+  <div class="stats grid" style="margin-top:16px">
+    <div class="box"><b>98.57%</b><span>test accuracy</span></div>
+    <div class="box"><b>97.5%</b><span>falls detected</span></div>
+    <div class="box"><b>99.1%</b><span>daily activities classified correctly</span></div>
+    <div class="box"><b>~7 KB</b><span>model RAM</span></div>
+  </div>
+  <p class="note">Six-axis model. Test figures were measured on the float32 version; the exported model is int8-quantised.</p>
+</section>
+
+<section>
+  <h2>Poster</h2>
+  <div class="box" style="text-align:center"><a href="assets/poster.jpg"><img src="assets/poster.jpg" alt="Project poster" loading="lazy" style="width:100%;max-width:480px;border-radius:8px"></a></div>
+</section>
+
+<section>
+  <h2>Honest limitations and next steps</h2>
+  <div class="two">
+    <div class="box"><h3 style="color:#c62828">Limitations</h3><ul>
+      <li>Validated on a public dataset and bench tests; not yet tested with elderly users in the field.</li>
+      <li>In the background the app still sends the Telegram alert, but does not show the countdown pop-up.</li>
+      <li>Battery life is not measured and SMS backup is not implemented.</li></ul></div>
+    <div class="box"><h3 style="color:#2e7d32">Next steps</h3><ul>
+      <li>Foreground service so the countdown shows in the background.</li>
+      <li>SMS backup.</li>
+      <li>Field trial and battery measurement.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>Source code and report</h2>
+  <div class="box"><div class="btns">
+    <a id="repo" href="#">GitHub repository</a>
+    <a href="assets/Wearable_Fall_Detection_Final_Report.pdf">Final report (PDF)</a>
+    <a class="gh" data-p="blob/main/firmware/esp32_fall_wearable_ble_ota.ino" href="#">Firmware</a>
+    <a class="gh" data-p="tree/main/app" href="#">Android app</a>
+    <a class="gh" data-p="tree/main/ml" href="#">Model scripts</a>
+  </div></div>
+</section>
+
+<section>
+  <h2>Team</h2>
+  <div class="box"><p><b>Tanjo Akter, Monisha Das, Samira Oasela Antika</b></p><p>Supervisor: Professor Md. Rokan Uddin Faruqui</p><p>Department of Computer Science and Engineering, University of Chittagong</p></div>
+</section>
+
+</main>
+<footer>Capstone Project 2026</footer>
+
+<script>
+(function(){
+  var h=location.hostname,p=location.pathname.split('/')[1];
+  if(h.endsWith('.github.io')&&p){var base='https://github.com/'+h.split('.')[0]+'/'+p;
+    document.getElementById('repo').href=base;
+    document.querySelectorAll('a.gh').forEach(function(a){a.href=base+'/'+a.dataset.p;});}
+  else{document.querySelectorAll('#repo,a.gh').forEach(function(a){a.style.display='none';});}
+})();
+</script>
+</body>
+</html>

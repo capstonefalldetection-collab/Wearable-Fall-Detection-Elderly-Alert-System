@@ -1,0 +1,13 @@
+# secrets - never commit
+*.env
+secrets.*
+key.properties
+# build output
+app/build/
+app/.dart_tool/
+app/.flutter-plugins*
+*.log
+# raw dataset
+SisFall_dataset/
+*.zip
+.DS_Store
