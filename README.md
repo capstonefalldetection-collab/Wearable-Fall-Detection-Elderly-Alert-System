@@ -2,8 +2,7 @@
 
 A low-cost wearable that detects a fall on the device itself, asks the wearer "Are you OK?" for 30 seconds, and alerts the family through a Telegram group if there is no answer.
 
-**Capstone Project** - Department of Computer Science and Engineering, University of Chittagong
-
+**Capstone Project** - Group 3
 [![Watch how the system works](docs/assets/thumb_title.png)](docs/assets/how_it_works.mp4)
 
 > Click the picture to watch the 67-second explainer video. The project page is in [`docs/`](docs/index.html) (see "Project web page" below).
